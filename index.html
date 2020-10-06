@@ -1,0 +1,61 @@
+<script>
+
+    function computerPlay() {
+        var choice = new Array('ROCK', 'SCISSORS', 'PAPER');
+        return choice[Math.floor(Math.random() * choice.length)];
+    }
+
+    function playRound(playerSelection, computerSelection) {
+        if (playerSelection === computerSelection)
+            return "Draw";
+        else if ((playerSelection === "ROCK" && computerSelection === "SCISSORS")
+            || (playerSelection === "SCISSORS" && computerSelection === "PAPER")
+            || (playerSelection === "PAPER" && computerSelection === "ROCK"))
+            return "Win";
+        else
+            return "Lose";
+    }
+
+    function game() {
+        var comWin = 0;
+        var userWin = 0;
+        var noWin = 0;
+
+        for (i = 0; i < 5; i++) {
+
+            var gameProgress = '게임 진행률: ' + (i + 1) + '/5\n';
+            var playerSelection = prompt(gameProgress + 'Rock, Scissors, Paper 셋 중에 하나를 선택하여 입력해주세요.').toUpperCase();
+
+            while (playerSelection !== "ROCK" && playerSelection !== "SCISSORS" && playerSelection !== "PAPER")
+                playerSelection = prompt(gameProgress + '잘못 입력하셨습니다. Rock, Scissors, Paper 셋 중에 하나를 선택하여 입력해주세요!').toUpperCase();
+
+            var computerSelection = computerPlay();
+            var selectionInfo = '사용자의 선택: ' + playerSelection + '\n' + '컴퓨터의 선택: ' + computerSelection + '\n';
+
+            if (playRound(playerSelection, computerSelection) === "Win") {
+                userWin += 1;
+                alert(gameProgress + "결과: 이겼습니다.\n" + selectionInfo);
+            }
+            else if (playRound(playerSelection, computerSelection) === "Lose") {
+                comWin += 1;
+                alert(gameProgress + "결과: 졌습니다.\n" + selectionInfo);
+            }
+            else {
+                noWin += 1;
+                alert(gameProgress + "결과: 비겼습니다.\n" + selectionInfo);
+            }
+        }
+
+        var allResultInfo = '사용자가 이긴 횟수: ' + userWin + '\n' + '컴퓨터가 이긴 횟수: ' + comWin + '\n' + '무승부 횟수: ' + noWin + '\n';
+
+        if (userWin > comWin)
+            alert(allResultInfo + "최종 결과: 승리!!!!!");
+        else if (userWin === comWin)
+            alert(allResultInfo + "최종 결과: 무승부!!!!!");
+        else
+            alert(allResultInfo + "최종 결과: 패배!!!!!");
+    }
+
+    game();
+
+</script>
